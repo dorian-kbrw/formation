@@ -8,8 +8,7 @@ defmodule ElixTest.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: ElixTest.Worker.start_link(arg)
-      # {ElixTest.Worker, arg}
+      Plug.Adapters.Cowboy.child_spec(:http, Server.Router, [], [port: 4001])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
