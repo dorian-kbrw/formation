@@ -37,14 +37,9 @@ defmacro __before_compile__(_env) do
       passed = false
       Enum.each @paths, fn name ->
         if (name == String.to_existing_atom(conn.request_path)) do
-          passed = true
           {code, message} = apply(__MODULE__, name, [])
           send_resp(conn, code, message)
         end
-      end
-      if (passed == false) do
-        {code, message} = apply(__MODULE__, :my_error, [])
-        send_resp(conn, code, message)
       end
     end
 

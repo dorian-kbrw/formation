@@ -1,0 +1,34 @@
+{
+  "name": "mybabel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "custom-jsx-plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-types": "^6.20.0",
+    "jsx": "^0.9.89",
+    "react": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/parser": "^7.13.9",
+    "babel-core": "^6.26.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-preset-jsxz": "^1.0.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-types": "^6.26.0",
+    "create-react-class": "^15.7.0"
+  }
+}
