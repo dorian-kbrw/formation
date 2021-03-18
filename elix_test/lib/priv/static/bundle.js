@@ -10994,12 +10994,12 @@ var orders = [{ remoteid: "000000189", custom: { customer: { full_name: "TOTO & 
 var i = 0;
 
 var remoteProps = {
-  /*user: (props) => {
+  user: function user(props) {
     return {
       url: "/api/me",
       prop: "user"
-    }
-  },*/
+    };
+  },
   orders: function orders(props) {
     if (!props.user) return;
     var qs = _extends({}, props.qs, { user_id: props.user.value.id });
@@ -11510,36 +11510,6 @@ function addRemoteProps(props) {
     }, reject);
   });
 }
-
-/*function addRemoteProps(props){
-  return new Promise((resolve, reject) => {
-  var remoteProps = Array.prototype.concat.apply([],
-    props.handlerPath
-      .map((c)=> c.remoteProps) // -> [[remoteProps.user], [remoteProps.orders], null]
-      .filter((p)=> p) // -> [[remoteProps.user], [remoteProps.orders]]
-  )
-  var remoteProps = remoteProps
-    .map((spec_fun)=> spec_fun(props) ) // -> 1st call [{url: '/api/me', prop: 'user'}, undefined]
-                              // -> 2nd call [{url: '/api/me', prop: 'user'}, {url: '/api/orders?user_id=123', prop: 'orders'}]
-    .filter((specs)=> specs) // get rid of undefined from remoteProps that don't match their dependencies
-    .filter((specs)=> !props[specs.prop] ||  props[specs.prop].url != specs.url) // get rid of remoteProps already resolved with the url
-  if(remoteProps.length == 0)
-    return resolve(props)
-    // check out https://github.com/cujojs/when/blob/master/docs/api.md#whenmap and https://github.com/cujojs/when/blob/master/docs/api.md#whenreduce
-  var promise = When.map( // Returns a Promise that either on a list of resolved remoteProps, or on the rejected value by the first fetch who failed 
-    remoteProps.map((spec)=>{ // Returns a list of Promises that resolve on list of resolved remoteProps ([{url: '/api/me', value: {name: 'Guillaume'}, prop: 'user'}])
-      return HTTP.get(spec.url)
-        .then((result)=>{spec.value = result; return spec}) // we want to keep the url in the value resolved by the promise here. spec = {url: '/api/me', value: {name: 'Guillaume'}, prop: 'user'} 
-    })
-  )
-   When.reduce(promise, (acc, spec)=>{ // {url: '/api/me', value: {name: 'Guillaume'}, prop: 'user'}
-    acc[spec.prop] = {url: spec.url, value: spec.value}
-    return acc
-  }, props).then((newProps)=>{
-    addRemoteProps(newProps).then(resolve, reject)
-  }, reject)
-})
-}*/
 
 var routes = {
   "orders": {

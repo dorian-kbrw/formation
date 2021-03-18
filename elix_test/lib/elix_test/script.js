@@ -18,12 +18,12 @@ var orders = [
 var i = 0
 
 var remoteProps = {
-  /*user: (props) => {
+  user: (props) => {
     return {
       url: "/api/me",
       prop: "user"
     }
-  },*/
+  },
   orders: (props) => {
     if (!props.user)
       return
