@@ -36,7 +36,6 @@ defmodule MyGenericServer do
 
     def start_link(callback_module, server_initial_state) do
         child = spawn_link(fn -> loop({callback_module, server_initial_state}) end)
-        #send(child, {:ok, child})
         {:ok, child}
     end
 

@@ -44,8 +44,8 @@ defmodule Server.Router do
       acc ++ [List.last(Tuple.to_list(x))]
     end)
     key = Enum.join(for <<c::utf8 <- List.first(t)>>, do: <<c::utf8>>)
-    Server.Database.read({:test, key})
-    send_resp(conn, 200, "read")
+    ret = Server.Database.read({:test, key})
+    send_resp(conn, 200, ret)
   end
 
   get "/update" do
