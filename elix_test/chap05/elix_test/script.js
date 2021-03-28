@@ -12,17 +12,6 @@ var When = require('when');
 
 var i = 0
 
-var GoTo = (route, params, query) => {
-  var qs = Qs.stringify(query)
-  var url = routes[route].path(params) + ((qs=='') ? '' : ('?'+qs))
-  history.pushState({}, "", url)
-  onPathChange()
-}
-
-function goHome() {
-  GoTo("orders", "", "");
-}
-
 var remoteProps = {
   user: (props) => {
     return {
@@ -143,6 +132,13 @@ var Header = createReactClass({
     }
   })
 
+  var GoTo = (route, params, query) => {
+    var qs = Qs.stringify(query)
+    var url = routes[route].path(params) + ((qs=='') ? '' : ('?'+qs))
+    history.pushState({}, "", url)
+    onPathChange()
+  }
+
 var Orders = createReactClass({
   statics: {
     remoteProps: [remoteProps.orders]
@@ -162,9 +158,8 @@ var Orders = createReactClass({
         title: 'Order deletion',
         message: `Are you sure you want to delete this ?`,
         callback: (value) => {
-          props.loader(HTTP.post("/api/delete", data).then(res => {
-            window.location.reload();
-          }));
+          props.loader(HTTP.post("/api/delete", data));
+          window.location.reload(false);
         }
       });
     }
@@ -187,6 +182,9 @@ var Orders = createReactClass({
 
 var Order = createReactClass({
   render(){
+    function goHome() {
+      GoTo("orders", "", "");
+    }
     var order = this.props.orders.value.find(v => v.remoteid === window.location.pathname.slice(7));
     return <JSXZ in="order" sel=".layout">
       <Z sel=".detail_client">{order.custom.customer.full_name}</Z>

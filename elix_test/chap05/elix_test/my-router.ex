@@ -7,10 +7,6 @@ defmodule Server.Router do
 
   get "/api/orders" do
     body = Poison.encode!(Enum.map(Server.Database.get_table, fn {_key, map}-> map end))
-    #Riak.put_object("test_bucket", "test_key", "test_value")
-    #IO.puts Riak.get_object("test_bucket", "test_key")
-    #Riak.delete_object("test_bucket", "test_key")
-    #IO.inspect Riak.get_object("test_bucket", "test_key")
     send_resp(conn, 200, body)
   end
 

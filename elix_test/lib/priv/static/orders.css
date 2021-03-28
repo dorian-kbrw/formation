@@ -1,4 +1,4 @@
-/* Generated on: Fri Mar 12 2021 14:23:16 GMT+0000 (Coordinated Universal Time) */
+/* Generated on: Mon Mar 22 2021 15:16:27 GMT+0000 (Coordinated Universal Time) */
 /* ==========================================================================
    normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css 
    ========================================================================== */
@@ -2636,7 +2636,7 @@ body {
     text-align: center;
 }
 
-.search-2 {
+.search-content {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2710,14 +2710,143 @@ body {
     text-align: center;
 }
 
+.text-block-26.details {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #3998eb;
+    color: #fff;
+    cursor: pointer;
+}
+
 .text-block-27 {
     text-align: center;
+}
+
+.text-block-27.pay {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #f75555;
+    cursor: pointer;
 }
 
 .orders-line {
     margin-bottom: 0%;
     padding-bottom: 15px;
     border-bottom: 1px dotted #000;
+}
+
+.heading-19 {
+    text-align: center;
+}
+
+.order {
+    margin-top: 75px;
+}
+
+.order-container {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: 1px none #000;
+}
+
+.text-block-28 {
+    text-align: right;
+}
+
+.columns {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 1px solid #000;
+}
+
+.text-block-29 {
+    text-align: right;
+}
+
+.text-block-30 {
+    text-align: right;
+}
+
+.text-block-31 {
+    width: auto;
+    border-bottom: 1px none #000;
+    text-align: center;
+    cursor: pointer;
+}
+
+.div-block {
+    margin-top: 10%;
+    margin-bottom: 0%;
+    text-align: center;
+}
+
+.heading-20 {
+    text-align: center;
+}
+
+.heading-21 {
+    text-align: center;
+}
+
+.heading-22 {
+    text-align: center;
+}
+
+.heading-23 {
+    text-align: center;
+}
+
+.div-block-2 {
+    margin-top: 3%;
+}
+
+.column-37 {
+    border-bottom: 1px solid #000;
+}
+
+.column-38 {
+    border-bottom: 1px solid #000;
+}
+
+.column-39 {
+    border-bottom: 1px solid #000;
+}
+
+.text-block-32 {
+    margin-top: 0%;
+    text-align: center;
+}
+
+.text-block-33 {
+    margin-top: 0%;
+    text-align: center;
+}
+
+.text-block-34 {
+    margin-top: 0%;
+    text-align: center;
+}
+
+.columns-2 {
+    border-bottom: 1px none #000;
+}
+
+.column-40 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #000;
+}
+
+.column-41 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #000;
+}
+
+.column-42 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #000;
 }
 
 @font-face {
