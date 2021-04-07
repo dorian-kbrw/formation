@@ -1,31 +1,57 @@
 defmodule Server.Router do
   use Plug.Router
 
-  plug Plug.Static, from: "lib/priv/static", at: "/static"
+  plug Plug.Static, at: "/public", from: :elix_test
+  #plug Plug.Static, from: "lib/priv/static", at: "/static"
   plug :match
   plug :dispatch
 
+  require EEx
+  EEx.function_from_file :defp, :layout, "web/layout.html.eex", [:render]
+
   get "/api/orders" do
-    body = Poison.encode!(Enum.map(Server.Database.get_table, fn {_key, map}-> map end))
-    #Riak.put_object("test_bucket", "test_key", "test_value")
-    #IO.puts Riak.get_object("test_bucket", "test_key")
-    #Riak.delete_object("test_bucket", "test_key")
-    #IO.inspect Riak.get_object("test_bucket", "test_key")
-    send_resp(conn, 200, body)
+    nb_orders = Riak.nb_orders("my_bucket")
+    float_max_pages = nb_orders / 30
+    max_pages = Kernel.round(float_max_pages) + 1
+    tmp = %{"map" => Riak.search("my_index", "id:nat_order*", 1, 30, "creation_date_index%20asc"), "max_page" => max_pages}
+    #map = Poison.encode!(Riak.search("my_index", "id:nat_order*", 1, 30, "creation_date_index%20asc"))
+    send_resp(conn, 200, Poison.encode!(tmp))
+  end
+
+  post "/api/pagination" do
+    {:ok, data, _conn} = read_body(conn)
+    {:ok, res} = Poison.decode(data)
+    {_actual, page} = List.first(Map.to_list(res))
+    nb_orders = Riak.nb_orders("my_bucket")
+    float_max_pages = nb_orders / 30
+    max_pages = Kernel.round(float_max_pages) + 1
+    if (page * 30 > nb_orders) do
+      tmp = %{"map" => Riak.search("my_index", "id:nat_order*", page, nb_orders - ((page - 1) * 30), "creation_date_index%20asc"), "max_page" => max_pages}
+      send_resp(conn, 200, Poison.encode!(tmp))
+    else
+      tmp = %{"map" => Riak.search("my_index", "id:nat_order*", page, 30, "creation_date_index%20asc"), "max_page" => max_pages}
+      send_resp(conn, 200, Poison.encode!(tmp))
+    end
   end
 
   post "/api/delete" do
     {:ok, data, _conn} = read_body(conn)
     {:ok, res} = Poison.decode(data)
     {_key, value} = List.first(Map.to_list(res))
-    Server.Database.delete({:test, value})
+    Riak.delete_object("my_bucket", value)
     body = Poison.encode!("CECI EST UN TEST")
     :timer.sleep(2000)
     send_resp(conn, 200, body)
   end
 
-  get _  do
-    send_file(conn, 200, "lib/priv/static/index.html")
+  # get _  do
+  #   send_file(conn, 200, "lib/priv/static/index.html")
+  # end
+
+  get "*_" do
+    conn = fetch_query_params(conn)
+    render = Reaxt.render!(:app, %{path: conn.request_path, cookies: conn.cookies, query: conn.params},30_000)
+    send_resp(put_resp_header(conn,"content-type","text/html;charset=utf-8"), render.param || 200,layout(render))
   end
 
 end
